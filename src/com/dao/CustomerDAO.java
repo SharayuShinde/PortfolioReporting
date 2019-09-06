@@ -1,5 +1,11 @@
 package com.dao;
 
-public class CustomerDAO {
+import com.pojo.Customer;
+
+public interface CustomerDAO {
+public Customer getCustomerByID();
+public Customer updateCustomer(int customerID,Customer c);
+public Customer deleteCustomer(int customerID);
+public Customer addCustomer(Customer c);
 
 }
