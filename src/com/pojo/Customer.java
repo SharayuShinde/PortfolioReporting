@@ -11,7 +11,7 @@ public class Customer {
 	private String nationality;
 	private String address;
 	public Customer(int customer_id, String fullname, Date date_of_birth, String place_of_birth, String gender,
-			String nationality, String address, long mobileNo, String adhar_no, String pan_no, String account_no) {
+			String nationality, String address, String mobileNo, String adhar_no, String pan_no, String account_no) {
 		super();
 		Customer_id = customer_id;
 		this.fullname = fullname;
@@ -36,7 +36,7 @@ public class Customer {
 				+ ", address=" + address + ", mobileNo=" + mobileNo + ", adhar_no=" + adhar_no + ", pan_no=" + pan_no
 				+ ", account_no=" + account_no + "]";
 	}
-	private long mobileNo;
+	private String mobileNo;
 	private String adhar_no;
 	private String pan_no;
 	private String account_no;
@@ -82,11 +82,11 @@ public class Customer {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public long getMobileNo() {
+	public String getMobileNo() {
 		return mobileNo;
 	}
-	public void setMobileNo(long mobileNo) {
-		this.mobileNo = mobileNo;
+	public void setMobileNo(String string) {
+		this.mobileNo = string;
 	}
 	public String getAdhar_no() {
 		return adhar_no;
