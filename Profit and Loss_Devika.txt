@@ -1,0 +1,35 @@
+Security wise resalised and unrealised P or L:
+
+1. check if realised or unrealised:
+
+select sum(qty_of_traded_sec) from transaction 
+where customer_id=? and security_symbol=? and (to_date(trade_date) between ? and ?);
+
+if zero -  realised
+if not zero - unrealised 
+
+2. realised P or L
+
+select sum(t.qty_of_traded_sec*p.price) as realised_profit from transaction t full outer join price p on t.security_symbol=p.security_symbol and to_date(t.trade_date)=to_date(p.trade_date)where t.customer_id=? and t.security_symbol=? and (to_date(t.trade_date) between ? and ?);
+
+ if positive- P
+ if negative - L
+
+3.Unrealised P or L 
+
+select (t.qty_of_traded_sec*p.price) as current_holding from transaction t full outer join price p on t.security_symbol=p.security_symbol and to_date(t.trade_date)=to_date(p.trade_date) where t.customer_id=? and t.security_symbol=? and to_date(t.trade_date)=(select max(to_date(trade_date)) from transaction where customer_id=? and security_symbol=?); 
+
+This gives the current holding value, c
+
+select qty_of_traded_sec from transaction where customer_id=? and security_symbol=? and to_date(trade_date)=(select max(to_date(trade_date)) from transaction where customer_id=? and security_symbol=?); 
+
+This gives unrealised quantitiy, q
+
+select price from price where to_date(trade_date)= (select to_date(sysdate) from dual) and security_symbol=?;
+
+This gives price on current date, p
+
+Unrealised P or L = c + (q*p)
+
+if positive- P
+if negative - L
