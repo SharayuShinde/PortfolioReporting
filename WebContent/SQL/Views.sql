@@ -38,6 +38,15 @@ AS SELECT SECURITY.SECURITY_SYMBOL, SECURITY.SECURITY_TYPE, COMPANY_SECURITY.COM
 FROM COMPANY,SECURITY,COMPANY_SECURITY
 GROUP BY COMPANY.SECTOR;
 
+/*
+---------------------------------------------------------------------------------------------
+View for the customers and the transactions and date associated with them
+---------------------------------------------------------------------------------------------
+*/
+
+CREATE VIEW V_CUSTOMER_TRANSACTION
+AS SELECT TRADE_DATE, CUSTOMER_ID, TRANSACTION_ID
+FROM TRANSACTION;
 
 /*
 ---------------------------------------------------------------------------------------------
@@ -69,4 +78,12 @@ To run the V_COMPANY_SECURITIES_SECTOR view
 ---------------------------------------------------------------------------------------------
 */
 
-SELECT * FROM V_COMPANY_SECURITIES_SECTOR
+SELECT * FROM V_COMPANY_SECURITIES_SECTOR;
+
+/*
+---------------------------------------------------------------------------------------------
+To run the V_CUSTOMER_TRANSACTION view
+---------------------------------------------------------------------------------------------
+*/
+
+SELECT * FROM V_CUSTOMER_TRANSACTION,
