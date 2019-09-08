@@ -29,6 +29,7 @@ FROM CUSTOMER;
 View for the data about
 - the sector in which company works
 - when the client wants to know which sector the company works in before investing in the security issued by the company
+- so that the client can decide if he would like to invest in the securities of a company working in a particular sector or not
 ---------------------------------------------------------------------------------------------
 */
 
@@ -38,3 +39,34 @@ FROM COMPANY,SECURITY,COMPANY_SECURITY
 GROUP BY COMPANY.SECTOR;
 
 
+/*
+---------------------------------------------------------------------------------------------
+To run the views
+---------------------------------------------------------------------------------------------
+*/
+
+/*
+---------------------------------------------------------------------------------------------
+To run the CUSTOMER view
+---------------------------------------------------------------------------------------------
+*/
+
+SELECT * FROM V_CUSTOMER;
+
+
+/*
+---------------------------------------------------------------------------------------------
+To run the CUSTOMER_KYC view
+---------------------------------------------------------------------------------------------
+*/
+
+SELECT * FROM V_CUSTOMER_KYC;
+
+
+/*
+---------------------------------------------------------------------------------------------
+To run the V_COMPANY_SECURITIES_SECTOR view
+---------------------------------------------------------------------------------------------
+*/
+
+SELECT * FROM V_COMPANY_SECURITIES_SECTOR
