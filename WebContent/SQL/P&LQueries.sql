@@ -72,3 +72,10 @@ SELECT PRICE FROM PRICE,SECURITY WHERE SECURITY_SYMBOL=? AND TRADE_DATE=?;
 
 SELECT QTY_OF_TRADED_SEC FROM TRANSACTION,SECURITY WHERE SECURITY_SYMBOL=? AND CUSTOMER_ID=?;
 
+/*
+---------------------------------------------------------------------------------------------
+Queries for Option realised and unrealised P&L
+---------------------------------------------------------------------------------------------
+*/
+
+select strike_price, action, expiration_date, lot_size, security_symbol, premium from options;
