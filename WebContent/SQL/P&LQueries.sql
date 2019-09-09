@@ -13,43 +13,43 @@ Queries for bond realised P&L
 --float faceValue
 ---------------------------------------------------------------------------------------------
 
-SELECT FACE_VALUE FROM BOND,SECURITY WHERE SECURITY_SYMBOL=?;
+SELECT FACE_VALUE FROM BOND WHERE SECURITY_SYMBOL=?;
 
 ---------------------------------------------------------------------------------------------
 --float coupanRate
 ---------------------------------------------------------------------------------------------
 
-SELECT COUPON_RATE FROM BOND,SECURITY WHERE SECURITY_SYMBOL=?;
+SELECT COUPON_RATE FROM BOND WHERE SECURITY_SYMBOL=?;
 
 ---------------------------------------------------------------------------------------------
 --String frequencyOfPayments
 ---------------------------------------------------------------------------------------------
 
-SELECT FREQUENCY_OF_PAYMENT FROM BOND,SECURITY WHERE SECURITY_SYMBOL=?;
+SELECT FREQUENCY_OF_PAYMENT FROM BOND WHERE SECURITY_SYMBOL=?;
 
 ---------------------------------------------------------------------------------------------
 --Date maturity
 ---------------------------------------------------------------------------------------------
 
-SELECT MATURITY FROM BOND,SECURITY WHERE SECURITY_SYMBOL=?;
+SELECT MATURITY FROM BOND WHERE SECURITY_SYMBOL=?;
 
 ---------------------------------------------------------------------------------------------
 --Date tradeDate
 ---------------------------------------------------------------------------------------------
 
-SELECT TRADE_DATE FROM TRANSACTION,SECURITY WHERE SECURITY_SYMBOL=? AND CUSTOMER_ID=?;
+SELECT TRADE_DATE FROM TRANSACTION WHERE SECURITY_SYMBOL=? AND CUSTOMER_ID=?;
 
 ---------------------------------------------------------------------------------------------
 --float price
 ---------------------------------------------------------------------------------------------
 
-SELECT PRICE FROM PRICE,SECURITY WHERE SECURITY_SYMBOL=? AND TRADE_DATE=?;;
+SELECT PRICE FROM PRICE WHERE SECURITY_SYMBOL=? AND TRADE_DATE=?;
 
 ---------------------------------------------------------------------------------------------
 --float marketPrice
 ---------------------------------------------------------------------------------------------
 
-SELECT PRICE FROM PRICE,SECURITY WHERE SECURITY_SYMBOL=? AND TRADE_DATE=?;
+SELECT PRICE FROM PRICE WHERE SECURITY_SYMBOL=? AND TRADE_DATE=?;
 
 /*
 ---------------------------------------------------------------------------------------------
@@ -64,13 +64,13 @@ SELECT FACE_VALUE FROM BOND,SECURITY WHERE SECURITY_SYMBOL=?;
 ---------------------------------------------------------------------------------------------
 --float marketPrice       --also accounted for in realised P&L 
 ---------------------------------------------------------------------------------------------
-SELECT PRICE FROM PRICE,SECURITY WHERE SECURITY_SYMBOL=? AND TRADE_DATE=?;
+SELECT PRICE FROM PRICE WHERE SECURITY_SYMBOL=? AND TRADE_DATE=?;
 
 ---------------------------------------------------------------------------------------------
 --int quantity
 ---------------------------------------------------------------------------------------------
 
-SELECT QTY_OF_TRADED_SEC FROM TRANSACTION,SECURITY WHERE SECURITY_SYMBOL=? AND CUSTOMER_ID=?;
+SELECT QTY_OF_TRADED_SEC FROM TRANSACTION WHERE SECURITY_SYMBOL=? AND CUSTOMER_ID=?;
 
 /*
 ---------------------------------------------------------------------------------------------
