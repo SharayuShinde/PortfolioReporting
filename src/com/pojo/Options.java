@@ -11,15 +11,21 @@ public class Options extends Security{
 		this.premium = premium;
 		this.lotSize = lotSize;
 	}
+	public Options() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String toString() {
 		return "Options [strikePrice=" + strikePrice + ", expirationDate=" + expirationDate + ", premium=" + premium
 				+ ", lotSize=" + lotSize + "]";
 	}
+	
 	private float strikePrice;
 	private Date expirationDate;
 	private float premium;
 	private int lotSize;
+	
 	public float getStrikePrice() {
 		return strikePrice;
 	}

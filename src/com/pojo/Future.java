@@ -13,6 +13,11 @@ public void setMaturity(Date maturity) {
 	this.maturity = maturity;
 }
 
+public Future() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+
 public Future(String securitySymbol, String securityType,Date maturity) {
 	super(securitySymbol, securityType);
 	this.maturity = maturity;
