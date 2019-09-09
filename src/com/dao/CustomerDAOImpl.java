@@ -50,18 +50,19 @@ public class CustomerDAOImpl implements CustomerDAO {
 		PreparedStatement stmt;
 		try {
 			stmt = con.prepareStatement(
-					"UPDATE customer SET CUSTOMER_ID=?,FULL_NAME=?,DATE_OF_BIRTH=?,PLACE_OF_BIRTH=?,GENDER=?,NATIONALITY=?,ADDRESS=?,MOBILE_NO=?,ADHAR_NO=?,PAN_NO=?,ACCOUNT_NO=?");
-			stmt.setInt(1, customerID);
-			stmt.setString(2, c.getFullname());
-			stmt.setDate(3, (Date) c.getDate_of_birth());
-			stmt.setString(4, c.getPlace_of_birth());
-			stmt.setString(5, c.getGender());
-			stmt.setString(6, c.getNationality());
-			stmt.setString(7, c.getAddress());
-			stmt.setString(8, c.getMobileNo());
-			stmt.setString(9, c.getAdhar_no());
-			stmt.setString(10, c.getPan_no());
-			stmt.setString(11, c.getAccount_no());
+					"UPDATE customer SET FULL_NAME=?,DATE_OF_BIRTH=?,PLACE_OF_BIRTH=?,GENDER=?,NATIONALITY=?,ADDRESS=?,MOBILE_NO=?,ADHAR_NO=?,PAN_NO=?,ACCOUNT_NO=? where customer_id=?");
+			stmt.setString(1, c.getFullname());
+			stmt.setDate(2, (Date) c.getDate_of_birth());
+			stmt.setString(3, c.getPlace_of_birth());
+			stmt.setString(4, c.getGender());
+			stmt.setString(5, c.getNationality());
+			stmt.setString(6, c.getAddress());
+			stmt.setString(7, c.getMobileNo());
+			stmt.setString(8, c.getAdhar_no());
+			stmt.setString(9, c.getPan_no());
+			stmt.setString(10, c.getAccount_no());
+			stmt.setInt(11, customerID);
+
 
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
