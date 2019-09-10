@@ -5,7 +5,7 @@ import java.util.Date;
 public class Bond extends Security {
 	private float faceValue;
 	private float couponRate;
-	private String FrequencyOfPayment;
+	private float FrequencyOfPayment;
 	private Date maturity;
 
 	public Bond() {
@@ -33,7 +33,7 @@ public class Bond extends Security {
 	}
 
 	public Bond(String securitySymbol, String securityType, float faceValue, float couponRate,
-			String frequencyOfPayment, Date maturity) {
+			float frequencyOfPayment, Date maturity) {
 		super(securitySymbol, securityType);
 		this.faceValue = faceValue;
 		this.couponRate = couponRate;
@@ -45,11 +45,11 @@ public class Bond extends Security {
 		this.couponRate = couponRate;
 	}
 
-	public String getFrequencyOfPayment() {
+	public float getFrequencyOfPayment() {
 		return FrequencyOfPayment;
 	}
 
-	public void setFrequencyOfPayment(String frequencyOfPayment) {
+	public void setFrequencyOfPayment(float frequencyOfPayment) {
 		FrequencyOfPayment = frequencyOfPayment;
 	}
 

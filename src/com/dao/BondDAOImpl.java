@@ -27,7 +27,7 @@ public class BondDAOImpl implements BondDAO {
 				b.setSecuritySymbol(rs.getString(1));
 				b.setFaceValue(rs.getFloat(2));
 				b.setCouponRate(rs.getFloat(3));
-				b.setFrequencyOfPayment(rs.getString(4));
+				b.setFrequencyOfPayment(rs.getFloat(4));
 				b.setMaturity(rs.getDate(5));
 			}
 		} catch (SQLException e) {
@@ -48,7 +48,7 @@ public class BondDAOImpl implements BondDAO {
 					"UPDATE bond SET face_value=?, coupon_rate=?, frequency_of_payment=?, maturity=? where security_symbol=?");
 			stmt.setFloat(1, b.getFaceValue());
 			stmt.setFloat(2, b.getCouponRate());
-			stmt.setString(3, b.getFrequencyOfPayment());
+			stmt.setFloat(3, b.getFrequencyOfPayment());
 			stmt.setDate(4, (Date) b.getMaturity());
 			stmt.setString(5, b.getSecuritySymbol());
 			ResultSet rs = stmt.executeQuery();
@@ -94,7 +94,7 @@ public class BondDAOImpl implements BondDAO {
 			stmt.setString(1, b.getSecuritySymbol());
 			stmt.setFloat(2, b.getFaceValue());
 			stmt.setFloat(3, b.getCouponRate());
-			stmt.setString(4, b.getFrequencyOfPayment());
+			stmt.setFloat(4, b.getFrequencyOfPayment());
 			stmt.setDate(5, (Date) b.getMaturity());
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
