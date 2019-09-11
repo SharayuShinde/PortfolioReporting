@@ -5,7 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.displayAttributes.enrichedFutures;
 import com.pojo.Bond;
 import com.pojo.Future;
 import com.pojo.Security;
@@ -97,6 +100,31 @@ public class FutureDAOImpl implements FutureDAO {
 		}
 
 		return f;
+	}
+
+	@Override
+	public List<enrichedFutures> getFuture(int customerId) {
+		List<enrichedFutures> l=new ArrayList<>();
+		String sql="select transaction.trade_date,transaction.security_symbol,transaction.qty_of_traded_sec,future.maturity from transaction join future on transaction.security_symbol=future.security_symbol where customer_id=?";
+		Connection con = DBConnection.createConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, customerId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				enrichedFutures e=new enrichedFutures();
+				e.setMaturity(rs.getDate(4));
+				e.setQuantity(rs.getInt(3));
+				e.setSecurity_symbol(rs.getString(2));
+				e.setTrade_date(rs.getDate(1));
+				l.add(e);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return l;
 	}
 
 }

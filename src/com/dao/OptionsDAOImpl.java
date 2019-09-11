@@ -1,7 +1,9 @@
 package com.dao;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +11,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
+import com.displayAttributes.enrichedoptions;
 import com.pojo.Bond;
 import com.pojo.Options;
 import com.pojo.Security;
@@ -114,6 +117,36 @@ public class OptionsDAOImpl implements OptionsDAO {
 		}
 
 		return o;
+	}
+
+	@Override
+	public List<enrichedoptions> getOptions(int customer_id) {
+		List<enrichedoptions> l=new ArrayList<>();
+		String sql="select options.security_symbol,strike_price,expiration_date,premium,lot_size,trade_date,qty_of_traded_sec from options join transaction on transaction.security_symbol=options.security_symbol where transaction.customer_id=?";
+		Connection con = DBConnection.createConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, customer_id);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				enrichedoptions e=new enrichedoptions();
+				e.setExpirationDate(rs.getDate(3));
+				e.setLotSize(rs.getInt(5));
+				e.setPremium(rs.getFloat(4));
+				e.setQuantity(rs.getInt(7));
+				e.setStrikePrice(rs.getFloat(2));
+				e.setTrade_date(rs.getDate(6));
+				e.setSecurity_symbol(rs.getString(1));
+				l.add(e);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return l;
+	
+	
 	}
 
 }

@@ -5,7 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.displayAttributes.enrichedEquity;
 import com.pojo.Bond;
 import com.pojo.Equity;
 import com.pojo.Security;
@@ -98,6 +101,37 @@ public class EquityDAOImpl implements EquityDAO {
 
 		return e;
 
+	}
+
+	@Override
+	public List<enrichedEquity> getEquity(int customerId) {
+		List<enrichedEquity> list=new ArrayList<>();
+		String sql="select TRANSACTION.TRADE_DATE, TRANSACTION.SECURITY_SYMBOL, TRANSACTION.QTY_OF_TRADED_SEC, PRICE.PRICE\r\n" + 
+				"from TRANSACTION  inner join EQUITY  on\r\n" + 
+				"TRANSACTION.SECURITY_SYMBOL = EQUITY.SECURITY_SYMBOL inner join PRICE  on \r\n" + 
+				"PRICE.SECURITY_SYMBOL = EQUITY.SECURITY_SYMBOL WHERE TRANSACTION.CUSTOMER_ID=?";
+		
+		Connection con = DBConnection.createConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, customerId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				enrichedEquity e=new enrichedEquity();
+				
+				e.setPrice(rs.getFloat(4));
+				e.setQuantityOfTradedSecurity(rs.getInt(3));
+				e.setSecuritySymbol(rs.getString(2));
+				e.setTrade_date(rs.getDate(1));
+				list.add(e);
+			}
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+		return list;
+		
 	}
 
 }

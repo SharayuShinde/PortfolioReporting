@@ -5,7 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.displayAttributes.enrichedBonds;
+import com.displayAttributes.enrichedEquity;
 import com.pojo.Bond;
 import com.pojo.Security;
 import com.util.DBConnection;
@@ -106,6 +110,37 @@ public class BondDAOImpl implements BondDAO {
 		}
 
 		return b;
+	}
+
+	@Override
+	public List<enrichedBonds> getBond(int customerId) {
+		// TODO Auto-generated method stub
+		String sql="select bond.security_symbol,face_value,coupon_rate,frequency_of_payment,maturity,trade_date,qty_of_traded_sec from bond join transaction on bond.security_symbol=transaction.security_symbol where customer_id=?";
+		List<enrichedBonds> list=new ArrayList<>();
+		Connection con = DBConnection.createConnection();
+		PreparedStatement stmt;
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, customerId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				enrichedBonds e=new enrichedBonds();
+				
+				e.setCouponRate(rs.getFloat(3));
+				e.setFaceValue(rs.getFloat(2));
+				e.setFrequency(rs.getFloat(4));
+				e.setMaturity(rs.getDate(5));
+				e.setQuantity(rs.getInt(7));
+				e.setSecurity_symbol(rs.getString(1));
+				e.setTrade_date(rs.getDate(6));
+				list.add(e);
+			}
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+		return list;
+		
 	}
 
 }
