@@ -10,4 +10,5 @@ public interface TransactionDAO {
 	public Transaction updateTransaction(String transactionid,Transaction newtransaction);
 	public Transaction deleteTransaction(String transactionid);
 	public Transaction addTransaction(Transaction transaction);
+	public Transaction getTransactionByTransactionId(String transactionid);
 }

@@ -65,9 +65,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
 			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				customer = getCustomerByID(customerID);
-			}
+
+			customer = getCustomerByID(customerID);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,9 +112,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			stmt.setString(11, c.getAccount_no());
 
 			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				customer = getCustomerByID(c.getCustomer_id());
-			}
+			customer = getCustomerByID(c.getCustomer_id());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

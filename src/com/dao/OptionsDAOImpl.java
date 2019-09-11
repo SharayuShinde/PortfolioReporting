@@ -1,10 +1,13 @@
 package com.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import com.pojo.Bond;
 import com.pojo.Options;
@@ -26,7 +29,7 @@ public class OptionsDAOImpl implements OptionsDAO {
 			while (rs.next()) {
 				o = new Options();
 				o.setSecuritySymbol(rs.getString(1));
-				o.setStrikePrice(rs.getFloat(2	));
+				o.setStrikePrice(rs.getFloat(2	)); 
 				o.setExpirationDate(rs.getDate(3));
 				o.setPremium(rs.getFloat(4));
 				o.setLotSize(rs.getInt(5));
@@ -48,10 +51,10 @@ public class OptionsDAOImpl implements OptionsDAO {
 			stmt = con.prepareStatement(
 					"UPDATE options SET strike_price=?, expiration_date=?, premium=?, lot_size=? where security_symbol=?");
 			stmt.setFloat(1, o.getStrikePrice());
-			stmt.setDate(2, (Date) o.getExpirationDate());
+			stmt.setDate(2, (java.sql.Date) o.getExpirationDate());
 			stmt.setFloat(3, o.getPremium());
 			stmt.setInt(4, o.getLotSize());
-			
+
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				options= getOptions(SecuritySymbol);
@@ -93,13 +96,18 @@ public class OptionsDAOImpl implements OptionsDAO {
 			stmt = con.prepareStatement("insert into options values(?,?,?,?,?)");
 			stmt.setString(1, o.getSecuritySymbol());
 			stmt.setFloat(2, o.getStrikePrice());
-			stmt.setDate(3, (Date) o.getExpirationDate());
+			ZoneId defaultZoneId = ZoneId.systemDefault();
+			Date date =  o.getExpirationDate();
+			Instant instant = date.toInstant();
+			LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+			System.out.println(localDate);
+			stmt.setDate(3, java.sql.Date.valueOf(localDate));
+			//			stmt.setDate(3, (Date) o.getExpirationDate());
 			stmt.setFloat(4, o.getPremium());
 			stmt.setInt(5, o.getLotSize());
 			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				options = getOptions(o.getSecuritySymbol());
-			}
+			options = getOptions(o.getSecuritySymbol());
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

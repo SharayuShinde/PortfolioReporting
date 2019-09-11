@@ -46,9 +46,8 @@ public class SecurityDAOImpl implements SecurityDAO {
 			stmt.setString(1, security.getSecurityType());
 			stmt.setString(2, SecuritySymbol);
 			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				s = getSecurityBySecuritySymbol(SecuritySymbol);
-			}
+			s = getSecurityBySecuritySymbol(SecuritySymbol);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,9 +84,8 @@ public class SecurityDAOImpl implements SecurityDAO {
 			stmt.setString(1, s.getSecuritySymbol());
 			stmt.setString(2, s.getSecurityType());
 			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				security = getSecurityBySecuritySymbol(s.getSecuritySymbol());
-			}
+			security = getSecurityBySecuritySymbol(s.getSecuritySymbol());
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
