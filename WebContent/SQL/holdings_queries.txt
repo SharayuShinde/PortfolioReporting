@@ -1,0 +1,15 @@
+select css.sector, sum(tp.holdings_security) as holdings_by_sector
+from (select c.sector, cs.security_symbol from company_security cs full outer join company c on cs.company_id = c.company_id) css 
+full outer join  
+(select t.security_symbol, sum(t.qty_of_traded_sec*p.price) as holdings_security from transaction t full outer join price p on t.security_symbol=p.security_symbol and to_date(t.trade_date)=to_date(p.trade_date)where t.customer_id=111111 and to_date(t.trade_date)<=(select sysdate from dual) group by t.security_symbol) tp 
+on css.security_symbol=tp.security_symbol group by css.sector ;
+
+- holdings by sector
+
+select s.security_type, sum(tp.holdings_security) as holdings_by_sec_type 
+from security s 
+full outer join  
+(select t.security_symbol, sum(t.qty_of_traded_sec*p.price) as holdings_security from transaction t full outer join price p on t.security_symbol=p.security_symbol and to_date(t.trade_date)=to_date(p.trade_date)where t.customer_id=111111 and to_date(t.trade_date)<=(select sysdate from dual) group by t.security_symbol) tp 
+on s.security_symbol=tp.security_symbol group by s.security_type ;
+
+- holdings by security type
